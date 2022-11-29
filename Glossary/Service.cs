@@ -6,13 +6,25 @@ using System.Threading.Tasks;
 
 namespace Glossary
 {
-    internal class Service
+    public class Service
     {
         readonly List<ConsoleColor> _colors = new();
         readonly List<Space> _spaces = new();
         private Pixel[,]? _pixels;
         private int _width;
         private int _height;
+
+        /// <summary>
+        /// Сообщение об ошибке программы
+        /// </summary>
+        /// <param name="ex"></param>
+        private void WriteExMsg(string msg)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(msg);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
 
         /// <summary>
         /// Выбор размера поля для игры
@@ -23,40 +35,55 @@ namespace Glossary
             {
                 try
                 {
-                    Console.Write("Введите размер окна через пробел (Ширина, высота): ");
-                    string[] sizes = Console.ReadLine().Split(' ');
-                    _width = int.Parse(sizes[0]);
-                    _height = int.Parse(sizes[1]);
-                    //Console.SetWindowSize(_width+10, _height+10);
-                    break;
+                    Console.Write("Введите число (ширину окна) от 2 до 80: ");
+                    _width = int.Parse(Console.ReadLine());
+                        
+                    Console.Write("Введите число (высоту окна) от 2 до 50: ");
+                    _height = int.Parse(Console.ReadLine());
+                    if (_width >=2 && _height >=2 && _width<=80&&_height<=50)
+                       break;
+                    Console.WriteLine("Введите значения в нужном диапазоне!");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    WriteExMsg(ex.Message);
                 }
             }
         }
+
+
 
         /// <summary>
         /// Выбор цвета для игры
         /// </summary>
         private void ColorSelection()
         {
-            List<ConsoleColor> colorList = new();
-            int i = 0;
-            foreach (var item in Enum.GetValues<ConsoleColor>())
+            while (true)
             {
-                if (item == ConsoleColor.Black)
-                    continue;
-                Console.WriteLine($"{++i}) {item}");
-                colorList.Add(item);
-            }
-            Console.Write("Выберите цвета которые будут участвовать в игре, напишите цифры через пробел: ");
-            string[] numbers = Console.ReadLine().Split(' ');
+                try
+                {
+                    List<ConsoleColor> colorList = new();
+                    int i = 0;
+                    foreach (var item in Enum.GetValues<ConsoleColor>())
+                    {
+                        if (item == ConsoleColor.Black)
+                            continue;
+                        Console.WriteLine($"{++i}) {item}");
+                        colorList.Add(item);
+                    }
+                    Console.Write("Выберите цвета которые будут участвовать в игре, напишите цифры через пробел: ");
+                    string[] numbers = Console.ReadLine().Split(' ');
 
-            foreach (var item in numbers)
-            {
-                _colors.Add(colorList[int.Parse(item) - 1]);
+                    foreach (var item in numbers)
+                    {
+                        _colors.Add(colorList[int.Parse(item) - 1]);
+                    }
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    WriteExMsg(ex.Message);
+                }
             }
 
         }
@@ -144,7 +171,7 @@ namespace Glossary
                 SpaceCreator();
                 OneStep();
                 CheckingTheSpaceForEmptiness();
-                Thread.Sleep(400);
+                //Thread.Sleep(1);
                 //Console.ReadKey();
                 RestartField();
                 if (_spaces.Count == 1)
@@ -152,5 +179,7 @@ namespace Glossary
             }
 
         }
+
+
     }
 }

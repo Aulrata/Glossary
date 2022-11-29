@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glossary
 {
-    internal class Pixel
+    public class Pixel
     {
         public Pixel(int positionX, int positionY, ConsoleColor color)
         {

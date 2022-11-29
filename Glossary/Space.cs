@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glossary
 {
-    internal class Space
+    public class Space
     {
         private readonly int _limitX;
         private readonly int _limitY;
@@ -111,10 +111,10 @@ namespace Glossary
         public Pixel[,] ColorARandomAdjacentPixel(Pixel[,] pixels)
         {
             // Этап 4
-            //float random2 = (float)_pixelOfThisSpace.Count / (float)pixels.Length;
-            //float random3 = Random.Shared.NextSingle();
-            //if (random2 < random3)
-            //    return pixels;
+            float random2 = (float)_pixelOfThisSpace.Count / (float)pixels.Length;
+            float random3 = Random.Shared.NextSingle();
+            if (random2 < random3)
+                return pixels;
             for (int i = 0; i < _pixelOfThisSpace.Count; i++)
             {
                 if (_pixelOfThisSpace[i].Color != Color)
