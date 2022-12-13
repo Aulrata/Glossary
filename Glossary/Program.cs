@@ -2,4 +2,6 @@
 
 Service Service = new Service();
 Service.StartGame();
-Console.ReadKey();
+
+// Посмотреть возможнности для применения LINQ
+// Реализовать начать игру после окончания данной

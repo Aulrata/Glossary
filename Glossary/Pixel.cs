@@ -15,9 +15,9 @@ namespace Glossary
             Color = color;
         }
 
-        public int PositionY { get; set; }
+        public int PositionY { get; private set; }
 
-        public int PositionX { get; set; }
+        public int PositionX { get; private set; }
 
         public ConsoleColor Color { get; set; }
 
